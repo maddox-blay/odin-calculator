@@ -13,9 +13,22 @@
         <div id="bigOp">0</div>
       </div>
       <div id="btnContainer">
-        <button class="top">C</button>
-        <button class="top">±</button>
-        <button class="top">%</button>
+        <button class="top" id="clear">AC</button>
+        <button class="top">
+          <svg
+            width="19"
+            height="20"
+            viewBox="0 0 19 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2.38397 18.5722C2.14771 18.9124 2.23198 19.3798 2.5722 19.616C2.91243 19.8523 3.37976 19.768 3.61603 19.4278L2.38397 18.5722ZM16.116 1.4278C16.3523 1.08757 16.268 0.620238 15.9278 0.383973C15.5876 0.147707 15.1202 0.231981 14.884 0.572203L16.116 1.4278ZM3 19L3.61603 19.4278L16.116 1.4278L15.5 1L14.884 0.572203L2.38397 18.5722L3 19ZM0 5V5.75H6V5V4.25H0V5ZM12 15V15.75H19V15V14.25H12V15ZM3 2H2.25V5H3H3.75V2H3ZM3 5H2.25V8.5H3H3.75V5H3Z"
+              fill="white"
+            />
+          </svg>
+        </button>
+        <button class="top" id="percent">%</button>
         <button class="operation">÷</button>
         <button class="number">7</button>
         <button class="number">8</button>
@@ -31,7 +44,7 @@
         <button class="operation">+</button>
         <button class="number" id="zero">0</button>
         <button class="number">.</button>
-        <button class="operation">=</button>
+        <button class="operation" id="equals">=</button>
       </div>
     </div>
   </body>
