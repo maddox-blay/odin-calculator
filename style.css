@@ -68,27 +68,40 @@ button{
     transition: background-color 30ms ease;
 }
 
-.operation:hover{
-    background-color: #FDC68D;
-}
-
 .top{
     background-color: #5C5C5E;
     transition: background-color 30ms ease;
-}
-
-.top:hover{
-    background-color: #8C8C8C;
 }
 
 .number{
     background-color: #2A2A2C;
     transition: background-color 30ms ease;
 }
+@media (hover: hover) and (pointer: fine) {
+    .operation:hover{
+        background-color: #FDC68D;
+    }
 
-.number:hover{
-    background-color: #727272;
+    .top:hover{
+        background-color: #8C8C8C;
+    }
+
+    .number:hover{
+        background-color: #727272;
+    }
 }
+
+ .operation:active{
+        background-color: #FDC68D;
+    }
+
+    .top:active{
+        background-color: #8C8C8C;
+    }
+
+    .number:active{
+        background-color: #727272;
+    }
 
 #zero{
     aspect-ratio: 2;
