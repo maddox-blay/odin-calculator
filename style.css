@@ -30,6 +30,7 @@ body{
     align-items: end;
     justify-content: end;
     text-align: right;
+    max-width: 280px;
 }
 #btnContainer{
     padding-top: 0;
@@ -54,6 +55,9 @@ button{
     border-radius: 100%;
     aspect-ratio: 1;
     width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -92,4 +96,5 @@ button{
     border-radius: 50px;
     text-align: left;
     padding: 0 0 0 25px;
+    justify-content: start;
 }
