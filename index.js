@@ -14,9 +14,20 @@ const svg = `<svg width="28" height="23" viewBox="0 0 28 23" fill="none" xmlns="
 `
 
 operations.forEach(operation => {
+    const ops = ["+","-","×","÷"];
     operation.addEventListener("click", event => {
     if (disp.textContent.slice(-1) != event.target.textContent && event.target.textContent != "=") {
-        disp.textContent += event.target.textContent;
+        if (ops.some( op => disp.textContent.slice(-1) == op)) {
+            if (event.target.textContent == "-" && disp.textContent.slice(-1) == "+") {
+                disp.textContent = disp.textContent.slice(0, -1) + "-";
+            }else{
+                disp.textContent = disp.textContent.slice(0, -1) + event.target.textContent; 
+            }
+        }else{
+            disp.textContent += event.target.textContent;
+        }   
+        complete = false;
+        prev.textContent = "";
     }    
 })
 })
@@ -31,6 +42,7 @@ equals.addEventListener("click", event =>{
     prev.textContent = disp.textContent
     clear.innerHTML = "AC"
     complete = true;
+    evaluate()
 })
 
 clear.addEventListener("click", event =>{
@@ -57,7 +69,7 @@ nums.forEach(element => {
     }else if(!(disp.textContent.includes(".") && event.target.textContent == ".")){
         disp.textContent += event.target.textContent;
     }
-    if (complete) {
+    if (complete && event.target.textContent != ".") {
         disp.textContent = event.target.textContent;
         complete = false;
     }
@@ -66,19 +78,87 @@ nums.forEach(element => {
 });
 
 
-const add = function(num1, num2){
-    return num1 + num2;
+const add = function(array){
+    let answer = 0;
+    for (const num of array) {
+        answer += num;
+    }
+    return answer
 }
 
-const subtract = function(num1, num2){
-    return num1 - num2;
+const subtract = function(array){
+    let answer = 0;
+    for (const num of array) {
+        answer -= num;
+    }
+    return answer
 }
 
-const divide = function(num1, num2){
-    return num1 / num2;
+
+const divide = function(array){
+    if (array.length != 0) {
+        let answer = array[0];
+        for (let i = 1; i < array.length; i++) {
+            answer /= array[i];  
+        }
+        return answer
+    }
+}
+    
+
+
+
+const multiply = function(array){
+    let answer = 1;
+    for (const num of array) {
+        answer *= num;
+    }
+    return answer
 }
 
-const multiply = function(num1, num2){
-    return num1 * num2;
+
+const numbers = [2, 4, 6];
+
+console.log(divide(numbers))
+
+const evaluate = function () {
+    let text = disp.textContent;
+    let postfix = [];
+    let stack = [];
+    const ops =["+","-","÷","×"];
+    let int = "";
+    let negInt = "-";
+
+    for (let i = 0; i < text.length; i++) {
+        const token = text[i];
+
+        if (!isNaN(parseInt(token))) {
+            while (i < text.length && (text[i] === "." ||!isNaN(parseInt(text[i]) )) ) {
+                int += text[i];
+                i++
+                console.log(int)
+            }
+            i--;
+            postfix.push(int);
+            int = "";
+            console.log(int)
+        }else if (token == "-" && (i == 0 || ops.some( op => text[i - 1] == op))) {
+            i++;
+            while (i < text.length && !isNaN(parseInt(text[i])) ) {
+                negInt += text[i];
+                i++
+                console.log(int)
+            }
+            postfix.push(negInt);
+            negInt = "-";
+        
+        }else{
+            stack.push(token)
+        }
+    }
+    console.log(postfix);
+    console.log(stack);
+    
+    
 }
 
