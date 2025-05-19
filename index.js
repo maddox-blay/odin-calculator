@@ -110,7 +110,7 @@ const evaluate = function () {
     let text = disp.textContent;
     let postfix = [];
     let stack = [];
-    const ops =["+","-","÷","×","%"];
+    const ops =["+","-","÷","×"];
     const precedence = {
         "+": 1,
         "-": 1,
@@ -130,6 +130,7 @@ const evaluate = function () {
                 i++
                 console.log(int)
             }
+
             i--;
             postfix.push(int);
             int = "";
@@ -143,6 +144,10 @@ const evaluate = function () {
             }
             postfix.push(negInt);
             negInt = "-";
+        
+        }else if (token == "%" && (i == text.length - 1 || ops.some( op => text[i + 1] == op))) {
+            let per = postfix.pop();
+            postfix.push(per / 100);
         
         }else{
             console.log(stack.length > 0 && precedence[stack[stack.length - 1]] >= precedence[token])
@@ -167,7 +172,7 @@ const calculate = function (array) {
         const element = array[i];
 
         if (!isNaN(parseInt(element))) {
-            stack.push(element)
+            stack.push(parseFloat(element))
         } else if (element == "+") {
             a = stack.pop();
             b = stack.pop();
@@ -184,7 +189,7 @@ const calculate = function (array) {
             a = stack.pop();
             b = stack.pop();
             stack.push(multiply(a, b));
-        }else{
+        } else if(element == "%"){
             a = stack.pop();
             b = stack.pop();
             stack.push(modulo(b, a));
@@ -193,5 +198,19 @@ const calculate = function (array) {
     }
     console.log(stack);
 
-    disp.textContent = stack;
+    const format = (num) => {
+        const epsilon = 1e-10;
+
+        if (Math.abs(num - Math.round(num)) < epsilon) {
+            return Math.round(num).toString();
+        }
+
+        if (Math.abs(num) < 0.001) {
+            return num.toExponential(2);
+        }
+
+        return num.toFixed(2);    
+    }
+
+    disp.textContent = format(stack[0]);
 }
